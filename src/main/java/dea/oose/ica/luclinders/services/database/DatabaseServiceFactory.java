@@ -16,14 +16,14 @@ public class DatabaseServiceFactory {
         return instance;
     }
 
-    public IDatabaseService create(DatabaseServiceType type) {
-        DatabaseProperties databaseProperties = DatabaseProperties.getInstance();
+    public IDatabaseService create(DatabaseServiceType type) throws DatabaseServiceNotKnownToFactoryException {
+        DatabaseProperties properties = DatabaseProperties.getInstance();
         switch (type) {
             case MARIADB:
-                service = new MariaDBService(databaseProperties.getConnectionString());
+                service = new MariaDBService(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
                 break;
             default:
-
+                throw new DatabaseServiceNotKnownToFactoryException();
         }
         return service;
     }

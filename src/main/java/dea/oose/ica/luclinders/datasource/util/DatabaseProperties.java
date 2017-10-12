@@ -13,7 +13,7 @@ public class DatabaseProperties {
     private final String PROPERTIES_FILE = "database.properties";
 
     private DatabaseProperties() {
-        init();
+        loadPropertyFile();
     }
 
     public static DatabaseProperties getInstance() {
@@ -23,7 +23,7 @@ public class DatabaseProperties {
         return instance;
     }
 
-    private void init() {
+    private void loadPropertyFile() {
         properties = new Properties();
         try {
             properties.load(getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
@@ -38,7 +38,15 @@ public class DatabaseProperties {
         return properties.getProperty("driver");
     }
 
-    public String getConnectionString() {
-        return properties.getProperty("connectionString");
+    public String getConnectionUrl() {
+        return properties.getProperty("connectionUrl");
+    }
+
+    public String getUser() {
+        return properties.getProperty("user");
+    }
+
+    public String getPassword() {
+        return properties.getProperty("pass");
     }
 }
