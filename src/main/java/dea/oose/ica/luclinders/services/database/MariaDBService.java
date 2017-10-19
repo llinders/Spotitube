@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 public class MariaDBService implements IDatabaseService {
     private Connection conn;
-
     private String connectionUrl;
     private String user;
     private String pass;
