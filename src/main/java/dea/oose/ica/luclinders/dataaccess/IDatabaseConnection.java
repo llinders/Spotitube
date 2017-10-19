@@ -1,9 +1,9 @@
-package dea.oose.ica.luclinders.services.database;
+package dea.oose.ica.luclinders.dataaccess;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public interface IDatabaseService {
+public interface IDatabaseConnection {
 
     Connection getConnection() throws SQLException;
 
