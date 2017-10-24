@@ -1,7 +1,6 @@
 package dea.luclinders.dataaccess;
 
 import dea.luclinders.dataaccess.connection.*;
-import dea.oose.ica.luclinders.dataaccess.connection.*;
 import org.junit.Before;
 import org.junit.Test;
 

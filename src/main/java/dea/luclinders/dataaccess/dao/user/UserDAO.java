@@ -5,6 +5,6 @@ import dea.luclinders.domain.User;
 
 public interface UserDAO extends DAO<User> {
 
-    User findByUsername(String username);
+    User findByUsernameAndPassword(String username, String password);
 
 }

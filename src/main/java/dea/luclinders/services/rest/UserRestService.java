@@ -2,6 +2,7 @@ package dea.luclinders.services.rest;
 
 import dea.luclinders.dataaccess.dao.user.UserDAO;
 import dea.luclinders.domain.User;
+import dea.luclinders.services.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -9,11 +10,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.Response;
+import javax.ws.rs.core.Response;
 
 public class UserRestService {
     @Inject
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @POST
     @Path("login")
@@ -23,14 +24,12 @@ public class UserRestService {
         //TODO: remove sout
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
+        System.out.println("lol");
 
-        User u = userDAO.findByUsername(user.getUsername());
+        User u = userDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 
         if (u == null) {
             //return error code: user not found
-        }
-        if (!u.getPassword().equals(user.getPassword())) {
-            //return error code: wrong username or password
         }
         return null;
     }
