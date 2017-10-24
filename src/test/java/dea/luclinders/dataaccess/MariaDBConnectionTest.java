@@ -1,6 +1,10 @@
-package dea.oose.ica.luclinders.dataaccess;
+package dea.luclinders.dataaccess;
 
-import dea.oose.ica.luclinders.datasource.util.DatabasePropertiesTest;
+import dea.luclinders.dataaccess.connection.MariaDBConnection;
+import dea.luclinders.datasource.util.DatabasePropertiesTest;
+import dea.luclinders.dataaccess.connection.DatabaseConnectionFactory;
+import dea.luclinders.dataaccess.connection.DatabaseConnectionType;
+import dea.luclinders.dataaccess.connection.DatabaseConnectionTypeNotKnownToFactoryException;
 import org.junit.Test;
 import org.mariadb.jdbc.MariaDbConnection;
 import org.mockito.InjectMocks;

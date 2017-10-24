@@ -1,4 +1,4 @@
-package dea.oose.ica.luclinders.domain;
+package dea.luclinders.domain;
 
 public class Song {
     private String album;

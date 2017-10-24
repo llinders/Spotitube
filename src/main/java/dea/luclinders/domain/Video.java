@@ -1,4 +1,4 @@
-package dea.oose.ica.luclinders.domain;
+package dea.luclinders.domain;
 
 import java.util.Date;
 

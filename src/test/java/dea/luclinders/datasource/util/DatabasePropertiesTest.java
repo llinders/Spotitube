@@ -1,6 +1,6 @@
-package dea.oose.ica.luclinders.datasource.util;
+package dea.luclinders.datasource.util;
 
-import dea.oose.ica.luclinders.dataaccess.util.DatabaseProperties;
+import dea.luclinders.dataaccess.connection.util.DatabaseProperties;
 import org.junit.Before;
 import org.junit.Test;
 

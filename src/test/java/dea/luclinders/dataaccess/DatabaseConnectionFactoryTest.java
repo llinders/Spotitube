@@ -1,9 +1,9 @@
-package dea.oose.ica.luclinders.dataaccess;
+package dea.luclinders.dataaccess;
 
+import dea.luclinders.dataaccess.connection.*;
+import dea.oose.ica.luclinders.dataaccess.connection.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 

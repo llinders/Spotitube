@@ -1,4 +1,4 @@
-package dea.oose.ica.luclinders.domain;
+package dea.luclinders.domain;
 
 public class Owner {
     private String username;

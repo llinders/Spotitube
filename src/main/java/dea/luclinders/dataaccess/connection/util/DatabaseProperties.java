@@ -1,4 +1,4 @@
-package dea.oose.ica.luclinders.dataaccess.util;
+package dea.luclinders.dataaccess.connection.util;
 
 import java.io.IOException;
 import java.util.Properties;
