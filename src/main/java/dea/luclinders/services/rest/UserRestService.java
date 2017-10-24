@@ -12,19 +12,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class UserRestService {
+@Path("login")
+public class UserRestService implements UserService {
     @Inject
     private UserDAO userDAO;
 
     @POST
-    @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(User user) {
+    public Response getTokenByUsernameAndPassword(User user) {
         //TODO: remove sout
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
-        System.out.println("lol");
 
         User u = userDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 
