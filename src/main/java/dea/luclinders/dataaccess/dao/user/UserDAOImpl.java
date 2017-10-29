@@ -5,6 +5,7 @@ import dea.luclinders.domain.User;
 public class UserDAOImpl implements UserDAO {
 
     public User findByUsernameAndPassword(String username, String password) {
+
         return null;
     }
 

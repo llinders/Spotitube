@@ -1,4 +1,4 @@
-package dea.luclinders.datasource.util;
+package dea.luclinders.dataaccess.connection.util;
 
 import dea.luclinders.dataaccess.connection.util.DatabaseProperties;
 import org.junit.Before;

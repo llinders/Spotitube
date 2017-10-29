@@ -1,4 +1,4 @@
-package dea.luclinders.dataaccess;
+package dea.luclinders.dataaccess.connection;
 
 import dea.luclinders.dataaccess.connection.*;
 import org.junit.Before;
