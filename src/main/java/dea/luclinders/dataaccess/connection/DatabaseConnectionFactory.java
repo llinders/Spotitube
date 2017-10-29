@@ -2,11 +2,17 @@ package dea.luclinders.dataaccess.connection;
 
 import dea.luclinders.dataaccess.connection.util.DatabaseProperties;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
 public class DatabaseConnectionFactory {
     private static DatabaseConnectionFactory instance;
-    private IDatabaseConnection service;
+    private Logger logger;
 
     private DatabaseConnectionFactory() {
+        logger = Logger.getLogger(DatabaseConnectionFactory.class.getName());
     }
 
     public static DatabaseConnectionFactory getInstance() {
@@ -16,15 +22,13 @@ public class DatabaseConnectionFactory {
         return instance;
     }
 
-    public IDatabaseConnection create(DatabaseConnectionType type) throws DatabaseConnectionTypeNotKnownToFactoryException {
+    public Connection create() {
         DatabaseProperties properties = DatabaseProperties.getInstance();
-        switch (type) {
-            case MARIADB:
-                service = new MariaDBConnection(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
-                break;
-            default:
-                throw new DatabaseConnectionTypeNotKnownToFactoryException();
+        try {
+            return DriverManager.getConnection(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
+        } catch(SQLException e) {
+            logger.severe(e.getMessage());
         }
-        return service;
+        return null;
     }
 }

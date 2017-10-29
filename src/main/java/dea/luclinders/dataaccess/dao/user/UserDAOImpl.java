@@ -1,11 +1,14 @@
 package dea.luclinders.dataaccess.dao.user;
 
+import dea.luclinders.dataaccess.connection.DatabaseConnectionFactory;
 import dea.luclinders.domain.User;
+
+import java.sql.Connection;
 
 public class UserDAOImpl implements UserDAO {
 
     public User findByUsernameAndPassword(String username, String password) {
-
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
         return null;
     }
 

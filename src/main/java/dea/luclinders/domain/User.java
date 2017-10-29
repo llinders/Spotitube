@@ -1,8 +1,5 @@
 package dea.luclinders.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 public class User {
     private int id;
     private String firstname;
