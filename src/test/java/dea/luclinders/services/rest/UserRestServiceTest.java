@@ -22,7 +22,7 @@ public class UserRestServiceTest {
     public void getTokenByUsernameAndPassword() {
         // init
         User u = mock(User.class);
-        when(u.getUsername()).thenReturn("username");
+        when(u.getUser()).thenReturn("username");
         when(u.getPassword()).thenReturn("password");
 
         // test

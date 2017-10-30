@@ -21,15 +21,11 @@ public class UserRestService implements UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTokenByUsernameAndPassword(User user) {
-        //TODO: remove sout
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-
-        User u = userDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        User u = userDAO.findByUsernameAndPassword(user.getUser(), user.getPassword());
 
         if (u == null) {
-            //return error code: user not found
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid username or password").build();
         }
-        return null;
+        return Response.ok().entity(u).build();
     }
 }

@@ -47,6 +47,6 @@ public class DatabaseProperties {
     }
 
     public String getPassword() {
-        return properties.getProperty("pass");
+        return properties.getProperty("password");
     }
 }

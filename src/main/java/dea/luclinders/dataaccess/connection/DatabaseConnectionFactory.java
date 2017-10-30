@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 public class DatabaseConnectionFactory {
     private static DatabaseConnectionFactory instance;
     private Logger logger;
+    private Connection conn;
 
     private DatabaseConnectionFactory() {
         logger = Logger.getLogger(DatabaseConnectionFactory.class.getName());
@@ -25,10 +26,14 @@ public class DatabaseConnectionFactory {
     public Connection create() {
         DatabaseProperties properties = DatabaseProperties.getInstance();
         try {
-            return DriverManager.getConnection(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
+            if (conn == null) {
+                Class.forName(properties.getDriver());
+                conn = DriverManager.getConnection(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
+            }
         } catch(SQLException e) {
             logger.severe(e.getMessage());
-        }
-        return null;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } return conn;
     }
 }
