@@ -7,6 +7,7 @@ public class Playlist {
     private String name;
     private boolean owner;
     private ArrayList<Track> tracks;
+    private transient int length;
 
     public int getId() {
         return id;
@@ -18,6 +19,10 @@ public class Playlist {
 
     public ArrayList<Track> getTracks() {
         return tracks;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public void setId(int id) {
@@ -34,5 +39,9 @@ public class Playlist {
 
     public void setTracks(ArrayList<Track> tracks) {
         this.tracks = tracks;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 }

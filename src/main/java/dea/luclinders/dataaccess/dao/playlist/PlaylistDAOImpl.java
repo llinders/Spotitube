@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class PlaylistDAOImpl implements PlaylistDAO {
     private Logger logger = Logger.getLogger(PlaylistDAOImpl.class.getName());
-    
+
     public List<Playlist> findAll(int userId) {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Playlist> playlists = new ArrayList<>();
@@ -22,23 +22,29 @@ public class PlaylistDAOImpl implements PlaylistDAO {
 
             ResultSet playlistResultSet = fetchAllPlaylistsStatement.executeQuery();
             while (playlistResultSet.next()) {
-                Playlist playlist = new Playlist();
-                playlist.setId(playlistResultSet.getInt("id"));
-                playlist.setName(playlistResultSet.getString("name"));
-                playlist.setTracks(new ArrayList<>());
+                int playlistId = playlistResultSet.getInt("id");
+                String playlistName = playlistResultSet.getString("name");
+                int playlistOwnerId = playlistResultSet.getInt("owner_id");
 
-                if (userId == playlistResultSet.getInt("owner_id")) {
+                Playlist playlist = new Playlist();
+                playlist.setId(playlistId);
+                playlist.setName(playlistName);
+                playlist.setTracks(new ArrayList<>());
+                if (userId == playlistOwnerId) {
                     playlist.setOwner(true);
                 } else {
                     playlist.setOwner(false);
                 }
 
+                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE playlist_id=?;");
+                fetchTotalDurationOfAllTracks.setInt(1, playlistId);
+                ResultSet totalTrackDurationResultSet = fetchTotalDurationOfAllTracks.executeQuery();
+                totalTrackDurationResultSet.next();
+                int playlistLength = totalTrackDurationResultSet.getInt("playlist_duration");
+
+                playlist.setLength(playlistLength);
+
                 playlists.add(playlist);
-                /*PreparedStatement fetchAllTracksFromPlaylistStatement = conn.prepareStatement("SELECT * FROM Tracks WHERE playlist_id=?");
-                ResultSet tracksResultSet = fetchAllTracksFromPlaylistStatement.executeQuery();
-                while (tracksResultSet.next()) {
-                    //TODO: complete
-                }*/
             }
         } catch (SQLException e) {
             logger.severe(e.getSQLState());
