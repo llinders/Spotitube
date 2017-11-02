@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface PlaylistDAO extends DAO<Playlist> {
 
-    List<Playlist> findAll();
+    List<Playlist> findAll(int userId);
 
 }

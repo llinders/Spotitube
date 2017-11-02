@@ -25,8 +25,6 @@ public class UserRestServiceImpl implements UserRestService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getTokenByUsernameAndPassword(User user) {
-        System.out.println(user.getUser() + " - " + user.getPassword());
-
         User u = userDAO.findByUsernameAndPassword(user.getUser(), user.getPassword());
         Session session = new Session(tokenGenerator.generateToken(), u);
         SessionManager.getInstance().addSession(session.getToken(), u);

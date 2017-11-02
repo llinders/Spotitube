@@ -9,6 +9,7 @@ public class SessionManager {
     private HashMap<String, User> sessions;
 
     private SessionManager() {
+        sessions = new HashMap<>();
     }
 
     public static SessionManager getInstance() {
