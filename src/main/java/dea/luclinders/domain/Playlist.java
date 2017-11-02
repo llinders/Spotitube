@@ -7,7 +7,7 @@ public class Playlist {
     private String name;
     private boolean owner;
     private ArrayList<Track> tracks;
-    private transient int length;
+    private int length;
 
     public int getId() {
         return id;
