@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 
-public class TokenGeneratorImplTest {
+public class SessionGeneratorImplTest {
     private TokenGeneratorImpl tokenGenerator;
 
     @Before

@@ -1,8 +1,9 @@
 package dea.luclinders.services.rest;
 
+import dea.luclinders.businesslogic.SessionManager;
 import dea.luclinders.businesslogic.TokenGenerator;
 import dea.luclinders.dataaccess.dao.user.UserDAO;
-import dea.luclinders.domain.Token;
+import dea.luclinders.domain.Session;
 import dea.luclinders.domain.User;
 
 import javax.inject.Inject;
@@ -27,11 +28,12 @@ public class UserRestServiceImpl implements UserRestService {
         System.out.println(user.getUser() + " - " + user.getPassword());
 
         User u = userDAO.findByUsernameAndPassword(user.getUser(), user.getPassword());
-        Token token = new Token(tokenGenerator.generateToken(), u);
+        Session session = new Session(tokenGenerator.generateToken(), u);
+        SessionManager.getInstance().addSession(session.getToken(), u);
 
         if (u == null) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid username or password").build();
         }
-        return Response.ok().entity(token).build();
+        return Response.ok().entity(session).build();
     }
 }

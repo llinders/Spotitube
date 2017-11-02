@@ -1,4 +1,4 @@
-package dea.luclinders.services.rest;
+package dea.luclinders.web.cors;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

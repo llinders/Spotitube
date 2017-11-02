@@ -1,10 +1,10 @@
 package dea.luclinders.domain;
 
-public class Token {
+public class Session {
     private String token;
     private transient User user;
 
-    public Token(String token, User user) {
+    public Session(String token, User user) {
         this.token = token;
         this.user = user;
     }
