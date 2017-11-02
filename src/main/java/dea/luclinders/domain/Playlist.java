@@ -7,12 +7,6 @@ public class Playlist {
     private String name;
     private ArrayList<Track> tracks;
 
-    public Playlist(int id, String name, ArrayList<Track> tracks) {
-        this.id = id;
-        this.name = name;
-        this.tracks = tracks;
-    }
-
     public int getId() {
         return id;
     }
@@ -23,5 +17,17 @@ public class Playlist {
 
     public ArrayList<Track> getTracks() {
         return tracks;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTracks(ArrayList<Track> tracks) {
+        this.tracks = tracks;
     }
 }

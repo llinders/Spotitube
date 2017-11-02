@@ -10,9 +10,6 @@ import javax.ws.rs.core.Response;
 
 public interface UserRestService {
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     Response getTokenByUsernameAndPassword(User user);
 
 }

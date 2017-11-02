@@ -13,7 +13,7 @@ public class Token {
         return token;
     }
 
-    public String getFullname() {
+    public String getUser() {
         return user.getFirstname() + " " + user.getLastname();
     }
 }
