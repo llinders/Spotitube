@@ -7,7 +7,7 @@ import dea.luclinders.domain.PlaylistList;
 import javax.inject.Inject;
 import java.util.List;
 
-public class PlaylistHandlerImpl implements  PlaylistHandler {
+public class PlaylistHandlerImpl implements PlaylistHandler {
     @Inject
     private PlaylistDAO playlistDAO;
     @Inject
@@ -19,8 +19,22 @@ public class PlaylistHandlerImpl implements  PlaylistHandler {
         return playlistHelper.makeOverview(playlists);
     }
 
-    public void createPlaylist(Playlist playlist, String token) throws InvalidTokenException {
+    public void createPlaylist(String playlistName, String token) throws InvalidTokenException {
         int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        playlistDAO.create(playlist, userId);
+        Playlist playlist = new Playlist();
+        playlist.setName(playlistName);
+        playlist.setOwnerId(userId);
+
+        playlistDAO.create(playlist);
+    }
+
+    public void updatePlaylist(int playlistId, String updatedPlaylistName, String token) throws InvalidTokenException {
+        int userId = SessionManager.getInstance().findUserByToken(token).getId();
+        Playlist playlist = new Playlist();
+        playlist.setId(playlistId);
+        playlist.setName(updatedPlaylistName);
+        playlist.setOwnerId(userId);
+
+        playlistDAO.update(playlist);
     }
 }

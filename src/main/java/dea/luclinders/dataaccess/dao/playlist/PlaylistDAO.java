@@ -8,6 +8,8 @@ public interface PlaylistDAO {
 
     List<Playlist> findAll(int userId);
 
-    void create(Playlist playlist, int userId);
+    void create(Playlist playlist);
+
+    void update(Playlist playlist);
 
 }
