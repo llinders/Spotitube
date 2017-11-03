@@ -19,8 +19,12 @@ public class SessionManager {
         return instance;
     }
 
-    public User findUserByToken(String token) {
-        return sessions.get(token);
+    public User findUserByToken(String token) throws InvalidTokenException {
+        User user = sessions.get(token);
+        if (user == null) {
+            throw new InvalidTokenException("Invalid token");
+        }
+        return user;
     }
 
     public void addSession(String token, User user) {

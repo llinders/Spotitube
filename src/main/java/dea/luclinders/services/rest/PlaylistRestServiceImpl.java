@@ -1,8 +1,7 @@
 package dea.luclinders.services.rest;
 
-import dea.luclinders.businesslogic.PlaylistHelper;
-import dea.luclinders.businesslogic.SessionManager;
-import dea.luclinders.dataaccess.dao.playlist.PlaylistDAO;
+import dea.luclinders.businesslogic.InvalidTokenException;
+import dea.luclinders.businesslogic.PlaylistHandler;
 import dea.luclinders.domain.Playlist;
 import dea.luclinders.domain.PlaylistList;
 
@@ -10,21 +9,23 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("playlists")
 public class PlaylistRestServiceImpl implements PlaylistRestService {
     @Inject
-    private PlaylistDAO playlistDAO;
-    @Inject
-    private PlaylistHelper playlistHelper;
+    private PlaylistHandler playlistHandler;
+
+    private final String INVALID_TOKEN_RESPONSE = "Token not valid";
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAvailablePlaylists(@QueryParam("token") String token) {
-        int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        List<Playlist> playlists = playlistDAO.findAll(userId);
-        PlaylistList playlistList = playlistHelper.makeOverview(playlists);
+        PlaylistList playlistList;
+        try {
+            playlistList = playlistHandler.getAllAvailablePlaylists(token);
+        } catch (InvalidTokenException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+        }
         return Response.ok().entity(playlistList).build();
     }
 
@@ -32,11 +33,13 @@ public class PlaylistRestServiceImpl implements PlaylistRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPlaylist(Playlist playlist, @QueryParam("token") String token) {
-        int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        playlistDAO.create(playlist, userId);
-
-        List<Playlist> playlists = playlistDAO.findAll(userId);
-        PlaylistList playlistList = playlistHelper.makeOverview(playlists);
+        PlaylistList playlistList;
+        try {
+            playlistHandler.createPlaylist(playlist, token);
+            playlistList = playlistHandler.getAllAvailablePlaylists(token);
+        } catch (InvalidTokenException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+        }
         return Response.ok().entity(playlistList).build();
     }
 }

@@ -59,6 +59,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             PreparedStatement insertPlaylist = conn.prepareStatement("INSERT INTO Playlist(name, owner_id) VALUES(?, ?)");
             insertPlaylist.setString(1, playlist.getName());
             insertPlaylist.setInt(2, userId);
+            insertPlaylist.executeUpdate();
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new RuntimeException("Failed to create playlist due to a persistance problem.", e);
