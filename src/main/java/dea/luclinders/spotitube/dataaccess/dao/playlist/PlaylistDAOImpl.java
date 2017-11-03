@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class PlaylistDAOImpl implements PlaylistDAO {
     private Logger logger = Logger.getLogger(PlaylistDAOImpl.class.getName());
 
-    public List<Playlist> findAll(int userId) {
+    public List<Playlist> findAll() {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Playlist> playlists = new ArrayList<>();
         try {
@@ -29,12 +29,13 @@ public class PlaylistDAOImpl implements PlaylistDAO {
                 Playlist playlist = new Playlist();
                 playlist.setId(playlistId);
                 playlist.setName(playlistName);
-                playlist.setTracks(new ArrayList<>());
+                playlist.setOwnerId(playlistOwnerId);
+                /*playlist.setTracks(new ArrayList<>());
                 if (userId == playlistOwnerId) {
                     playlist.setOwner(true);
                 } else {
                     playlist.setOwner(false);
-                }
+                }*/
 
                 PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE playlist_id=?;");
                 fetchTotalDurationOfAllTracks.setInt(1, playlistId);

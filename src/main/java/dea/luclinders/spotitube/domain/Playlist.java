@@ -5,9 +5,7 @@ import java.util.ArrayList;
 public class Playlist {
     private int id;
     private String name;
-    private boolean owner;
     private int ownerId;
-    private ArrayList<Track> tracks;
     private int length;
 
     public int getId() {
@@ -22,10 +20,6 @@ public class Playlist {
         return ownerId;
     }
 
-    public ArrayList<Track> getTracks() {
-        return tracks;
-    }
-
     public int getLength() {
         return length;
     }
@@ -38,16 +32,8 @@ public class Playlist {
         this.name = name;
     }
 
-    public void setOwner(boolean owner) {
-        this.owner = owner;
-    }
-
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
-    }
-
-    public void setTracks(ArrayList<Track> tracks) {
-        this.tracks = tracks;
     }
 
     public void setLength(int length) {

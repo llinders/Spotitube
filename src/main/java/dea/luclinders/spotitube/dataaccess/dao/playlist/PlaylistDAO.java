@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PlaylistDAO {
 
-    List<Playlist> findAll(int userId);
+    List<Playlist> findAll();
 
     void create(Playlist playlist);
 

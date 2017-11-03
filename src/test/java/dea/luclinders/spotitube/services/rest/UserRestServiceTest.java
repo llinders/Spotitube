@@ -22,12 +22,12 @@ public class UserRestServiceTest {
     @Mock
     private TokenGeneratorImpl tokenGenerator;
     @InjectMocks
-    private UserRestServiceImpl userService;
+    private UserRestService userService;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserRestServiceImpl();
+        userService = new UserRestService();
     }
 
     @Test
