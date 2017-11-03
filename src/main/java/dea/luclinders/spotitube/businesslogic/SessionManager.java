@@ -30,4 +30,8 @@ public class SessionManager {
     public void addSession(String token, User user) {
         sessions.put(token, user);
     }
+
+    public boolean isValid(String token) {
+        return sessions.get(token) != null;
+    }
 }

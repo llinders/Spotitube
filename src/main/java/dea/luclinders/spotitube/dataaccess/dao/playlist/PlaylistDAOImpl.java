@@ -30,14 +30,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
                 playlist.setId(playlistId);
                 playlist.setName(playlistName);
                 playlist.setOwnerId(playlistOwnerId);
-                /*playlist.setTracks(new ArrayList<>());
-                if (userId == playlistOwnerId) {
-                    playlist.setOwner(true);
-                } else {
-                    playlist.setOwner(false);
-                }*/
 
-                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE playlist_id=?;");
+                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE playlist_id = ?;");
                 fetchTotalDurationOfAllTracks.setInt(1, playlistId);
                 ResultSet totalTrackDurationResultSet = fetchTotalDurationOfAllTracks.executeQuery();
                 totalTrackDurationResultSet.next();
@@ -70,7 +64,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public void update(Playlist playlist) {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         try {
-            PreparedStatement updatePlaylist = conn.prepareStatement("UPDATE Playlist SET name=? WHERE id=? AND owner_id=?");
+            PreparedStatement updatePlaylist = conn.prepareStatement("UPDATE Playlist SET name = ? WHERE id = ? AND owner_id = ?");
             updatePlaylist.setString(1, playlist.getName());
             updatePlaylist.setInt(2, playlist.getId());
             updatePlaylist.setInt(3, playlist.getOwnerId());

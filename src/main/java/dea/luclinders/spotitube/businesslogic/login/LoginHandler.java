@@ -1,4 +1,4 @@
-package dea.luclinders.spotitube.businesslogic;
+package dea.luclinders.spotitube.businesslogic.login;
 
 import dea.luclinders.spotitube.domain.Session;
 

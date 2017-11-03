@@ -1,5 +1,7 @@
-package dea.luclinders.spotitube.businesslogic;
+package dea.luclinders.spotitube.businesslogic.playlist;
 
+import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
+import dea.luclinders.spotitube.businesslogic.SessionManager;
 import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
 import dea.luclinders.spotitube.domain.Playlist;
 import dea.luclinders.spotitube.domain.PlaylistList;
@@ -12,18 +14,13 @@ import java.util.List;
 public class PlaylistHandlerImpl implements PlaylistHandler {
     @Inject
     private PlaylistDAO playlistDAO;
-    @Inject
-    private PlaylistHelper playlistHelper;
 
-    public PlaylistList getAllAvailablePlaylists(String token) throws InvalidTokenException {
+    public PlaylistList findAllAvailablePlaylists(String token) throws InvalidTokenException {
         int userId = SessionManager.getInstance().findUserByToken(token).getId();
         List<Playlist> playlists = playlistDAO.findAll();
-        System.out.println("Before: " + playlists);
         List<UserPlaylist> userPlaylists = convertPlaylistToUserPlaylist(playlists, userId);
 
-        System.out.println("After: " + userPlaylists);
-
-        return playlistHelper.makeOverview(userPlaylists);
+        return makePlaylistOverview(userPlaylists);
     }
 
     public void createPlaylist(String playlistName, String token) throws InvalidTokenException {
@@ -60,5 +57,13 @@ public class PlaylistHandlerImpl implements PlaylistHandler {
             userPlaylists.add(userPlaylist);
         }
         return userPlaylists;
+    }
+
+    private PlaylistList makePlaylistOverview(List<UserPlaylist> playlists) {
+        int totalLength = 0;
+        for (UserPlaylist playlist : playlists) {
+            totalLength += playlist.getLength();
+        }
+        return new PlaylistList(playlists, totalLength);
     }
 }

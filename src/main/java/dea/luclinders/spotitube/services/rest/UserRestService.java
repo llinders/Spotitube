@@ -1,6 +1,6 @@
 package dea.luclinders.spotitube.services.rest;
 
-import dea.luclinders.spotitube.businesslogic.LoginHandler;
+import dea.luclinders.spotitube.businesslogic.login.LoginHandler;
 import dea.luclinders.spotitube.domain.LoginRequest;
 import dea.luclinders.spotitube.domain.Session;
 
