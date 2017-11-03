@@ -33,7 +33,7 @@ public class PlaylistRestServiceImpl implements PlaylistRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPlaylist(Playlist playlist, @QueryParam("token") String token) {
         int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        playlistDAO.create(playlist);
+        playlistDAO.create(playlist, userId);
 
         List<Playlist> playlists = playlistDAO.findAll(userId);
         PlaylistList playlistList = playlistHelper.makeOverview(playlists);

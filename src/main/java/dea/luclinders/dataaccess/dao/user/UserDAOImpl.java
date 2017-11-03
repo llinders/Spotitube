@@ -3,6 +3,7 @@ package dea.luclinders.dataaccess.dao.user;
 import dea.luclinders.dataaccess.connection.DatabaseConnectionFactory;
 import dea.luclinders.domain.User;
 
+import javax.ws.rs.NotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +13,11 @@ import java.util.logging.Logger;
 public class UserDAOImpl implements UserDAO {
     private Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 
-    public User findByUsernameAndPassword(String username, String password) {
+    public User findByUsername(String username) throws NotFoundException {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM User WHERE username=? AND password=?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM User WHERE username=?");
             statement.setString(1, username);
-            statement.setString(2, password);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -33,22 +33,6 @@ public class UserDAOImpl implements UserDAO {
             logger.severe(e.getMessage());
             throw new RuntimeException("Failed to fetch a user due to a persistance problem.", e);
         }
-        return null;
-    }
-
-    public void create(User entity) {
-
-    }
-
-    public void update(User entity) {
-
-    }
-
-    public void delete(User entity) {
-
-    }
-
-    public User find(int id) {
-        return null;
+        throw new NotFoundException("User not found");
     }
 }

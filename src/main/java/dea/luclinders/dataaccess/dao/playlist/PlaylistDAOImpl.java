@@ -47,25 +47,21 @@ public class PlaylistDAOImpl implements PlaylistDAO {
                 playlists.add(playlist);
             }
         } catch (SQLException e) {
-            logger.severe(e.getSQLState());
+            logger.severe(e.getMessage());
             throw new RuntimeException("Failed to fetch playlists due to a persistance problem.", e);
         }
         return playlists;
     }
 
-    public void create(Playlist playlist) {
-
-    }
-
-    public void update(Playlist playlist) {
-
-    }
-
-    public void delete(Playlist playlist) {
-
-    }
-
-    public Playlist find(int id) {
-        return null;
+    public void create(Playlist playlist, int userId) {
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
+        try {
+            PreparedStatement insertPlaylist = conn.prepareStatement("INSERT INTO Playlist(name, owner_id) VALUES(?, ?)");
+            insertPlaylist.setString(1, playlist.getName());
+            insertPlaylist.setInt(2, userId);
+        } catch (SQLException e) {
+            logger.severe(e.getMessage());
+            throw new RuntimeException("Failed to create playlist due to a persistance problem.", e);
+        }
     }
 }

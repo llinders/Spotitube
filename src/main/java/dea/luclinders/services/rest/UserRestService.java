@@ -1,5 +1,6 @@
 package dea.luclinders.services.rest;
 
+import dea.luclinders.domain.LoginRequest;
 import dea.luclinders.domain.User;
 
 import javax.ws.rs.Consumes;
@@ -10,6 +11,6 @@ import javax.ws.rs.core.Response;
 
 public interface UserRestService {
 
-    Response getTokenByUsernameAndPassword(User user);
+    Response getTokenByUsernameAndPassword(LoginRequest loginRequest);
 
 }
