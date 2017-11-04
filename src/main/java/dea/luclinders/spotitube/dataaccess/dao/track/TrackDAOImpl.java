@@ -18,7 +18,7 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track LEFT JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id NOT IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
+            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT T.*, PT.offline_available FROM Track T LEFT JOIN PlaylistTrack PT ON T.id = PT.track_id WHERE id NOT IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
             fetchTracksNotInPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksNotInPlaylist.executeQuery();
