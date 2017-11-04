@@ -18,11 +18,11 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT T.*, PT.offline_available FROM Track T LEFT JOIN PlaylistTrack PT ON T.id = PT.track_id WHERE id NOT IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
+            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT DISTINCT T.* FROM Track T LEFT JOIN PlaylistTrack PT ON T.id = PT.track_id WHERE T.id NOT IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
             fetchTracksNotInPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksNotInPlaylist.executeQuery();
-            tracks = persistTracks(tracksResultSet);
+            tracks = persistTracks(tracksResultSet, true);
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new RuntimeException("Failed to fetch tracks due to a persistance problem.", e);
@@ -38,7 +38,7 @@ public class TrackDAOImpl implements TrackDAO {
             fetchTracksFromPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksFromPlaylist.executeQuery();
-            tracks = persistTracks(tracksResultSet);
+            tracks = persistTracks(tracksResultSet, false);
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new RuntimeException("Failed to fetch tracks due to a persistance problem.", e);
@@ -73,7 +73,7 @@ public class TrackDAOImpl implements TrackDAO {
         }
     }
 
-    private List<Track> persistTracks(ResultSet rs) throws SQLException {
+    private List<Track> persistTracks(ResultSet rs, boolean trackInfoOnly) throws SQLException {
         List<Track> tracks = new ArrayList<>();
         while (rs.next()) {
             Track track = new Track();
@@ -85,7 +85,11 @@ public class TrackDAOImpl implements TrackDAO {
             track.setPlaycount(rs.getInt("playcount"));
             track.setPublicationDate(rs.getDate("publication_date"));
             track.setDescription(rs.getString("description"));
-            track.setOfflineAvailable(rs.getBoolean("offline_available"));
+            if (!trackInfoOnly) {
+                track.setOfflineAvailable(rs.getBoolean("offline_available"));
+            } else {
+                track.setOfflineAvailable(false);
+            }
 
             tracks.add(track);
         }

@@ -31,7 +31,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
                 playlist.setName(playlistName);
                 playlist.setOwnerId(playlistOwnerId);
 
-                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE id IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
+                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE id IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
                 fetchTotalDurationOfAllTracks.setInt(1, playlistId);
                 ResultSet totalTrackDurationResultSet = fetchTotalDurationOfAllTracks.executeQuery();
                 totalTrackDurationResultSet.next();
