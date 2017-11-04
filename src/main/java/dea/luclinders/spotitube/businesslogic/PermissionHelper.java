@@ -9,10 +9,10 @@ public class PermissionHelper {
     private PlaylistDAO playlistDAO;
 
     public boolean userIsOwnerOfPlaylist(int userId, int playlistId) {
-        return false;
+        return userId == playlistDAO.find(playlistId).getOwnerId();
     }
 
-    public boolean userIsOwnerOfPlaylist(String token, int playlistId) {
-        return false;
+    public boolean userIsOwnerOfPlaylist(String token, int playlistId) throws InvalidTokenException {
+        return userIsOwnerOfPlaylist(SessionManager.getInstance().findUserByToken(token).getId(), playlistId);
     }
 }

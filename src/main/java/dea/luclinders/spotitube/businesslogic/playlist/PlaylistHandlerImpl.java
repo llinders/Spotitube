@@ -1,6 +1,7 @@
 package dea.luclinders.spotitube.businesslogic.playlist;
 
 import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
+import dea.luclinders.spotitube.businesslogic.PermissionHelper;
 import dea.luclinders.spotitube.businesslogic.SessionManager;
 import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
 import dea.luclinders.spotitube.domain.Playlist;
@@ -14,6 +15,8 @@ import java.util.List;
 public class PlaylistHandlerImpl implements PlaylistHandler {
     @Inject
     private PlaylistDAO playlistDAO;
+    @Inject
+    private PermissionHelper permissionHelper;
 
     public PlaylistList findAllAvailablePlaylists(String token) throws InvalidTokenException {
         int userId = SessionManager.getInstance().findUserByToken(token).getId();
@@ -39,13 +42,13 @@ public class PlaylistHandlerImpl implements PlaylistHandler {
         playlist.setName(updatedPlaylistName);
         playlist.setOwnerId(userId);
 
-        playlistDAO.update(playlist);
+        if (permissionHelper.userIsOwnerOfPlaylist(userId, playlistId)) {
+            playlistDAO.update(playlist);
+        }
     }
 
     public void deletePlaylist(int playlistId, String token) throws InvalidTokenException {
-        int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
-        if (userId == playlistOwnerId) {
+        if (permissionHelper.userIsOwnerOfPlaylist(token, playlistId)) {
             playlistDAO.delete(playlistId);
         }
     }

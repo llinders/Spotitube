@@ -1,6 +1,7 @@
 package dea.luclinders.spotitube.businesslogic.track;
 
 import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
+import dea.luclinders.spotitube.businesslogic.PermissionHelper;
 import dea.luclinders.spotitube.businesslogic.SessionManager;
 import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
 import dea.luclinders.spotitube.dataaccess.dao.track.TrackDAO;
@@ -14,6 +15,8 @@ public class TrackHandlerImpl implements TrackHandler {
     private TrackDAO trackDAO;
     @Inject
     private PlaylistDAO playlistDAO;
+    @Inject
+    private PermissionHelper permissionHelper;
 
     private final String INVALID_TOKEN_MESSAGE = "Token is not registered";
 
@@ -36,17 +39,13 @@ public class TrackHandlerImpl implements TrackHandler {
     }
 
     public void deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws InvalidTokenException {
-        int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
-        if (userId == playlistOwnerId) {
+        if (permissionHelper.userIsOwnerOfPlaylist(token, playlistId)) {
             trackDAO.deleteTrackFromPlaylist(playlistId, trackId);
         }
     }
 
     public void addTrackToPlaylist(int playlistId, Track track, String token) throws InvalidTokenException {
-        int userId = SessionManager.getInstance().findUserByToken(token).getId();
-        int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
-        if (userId == playlistOwnerId) {
+        if (permissionHelper.userIsOwnerOfPlaylist(token, playlistId)) {
             trackDAO.addTrackToPlaylist(playlistId, track);
         }
     }
