@@ -13,5 +13,4 @@ public interface TrackHandler {
     void deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws InvalidTokenException;
 
     void addTrackToPlaylist(int playlistId, Track track, String token) throws InvalidTokenException;
-
 }

@@ -5,5 +5,4 @@ import dea.luclinders.spotitube.domain.User;
 public interface UserDAO {
 
     User findByUsername(String username);
-
 }

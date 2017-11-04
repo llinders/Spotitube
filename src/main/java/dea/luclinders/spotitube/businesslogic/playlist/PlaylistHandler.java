@@ -12,5 +12,4 @@ public interface PlaylistHandler {
     void updatePlaylist(int playlistId, String updatedPlaylistName, String token) throws InvalidTokenException;
 
     void deletePlaylist(int playlistId, String token) throws InvalidTokenException;
-
 }

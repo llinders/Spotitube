@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("login")
-public class UserRestService {
+public class LoginRestService {
     @Inject
     private LoginHandler loginHandler;
 

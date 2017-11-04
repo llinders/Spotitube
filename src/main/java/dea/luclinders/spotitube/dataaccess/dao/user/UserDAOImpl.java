@@ -1,7 +1,7 @@
 package dea.luclinders.spotitube.dataaccess.dao.user;
 
-import dea.luclinders.spotitube.domain.User;
 import dea.luclinders.spotitube.dataaccess.connection.DatabaseConnectionFactory;
+import dea.luclinders.spotitube.domain.User;
 
 import javax.ws.rs.NotFoundException;
 import java.sql.Connection;

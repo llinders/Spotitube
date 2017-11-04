@@ -1,7 +1,5 @@
 package dea.luclinders.spotitube.domain;
 
-import java.util.ArrayList;
-
 public class Playlist {
     private int id;
     private String name;

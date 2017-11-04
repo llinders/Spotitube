@@ -30,10 +30,11 @@ public class DatabaseConnectionFactory {
                 Class.forName(properties.getDriver());
                 conn = DriverManager.getConnection(properties.getConnectionUrl(), properties.getUser(), properties.getPassword());
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             logger.severe(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } return conn;
+        }
+        return conn;
     }
 }

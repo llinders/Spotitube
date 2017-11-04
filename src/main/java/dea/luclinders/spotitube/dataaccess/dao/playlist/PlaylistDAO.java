@@ -15,5 +15,4 @@ public interface PlaylistDAO {
     void update(Playlist playlist);
 
     void delete(int playlistId);
-
 }

@@ -7,5 +7,4 @@ import javax.security.auth.login.CredentialException;
 public interface LoginHandler {
 
     Session checkCredentials(String username, String password) throws CredentialException;
-
 }

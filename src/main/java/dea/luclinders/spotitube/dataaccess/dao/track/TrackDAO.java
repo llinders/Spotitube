@@ -13,5 +13,4 @@ public interface TrackDAO {
     void deleteTrackFromPlaylist(int playlistId, int trackId);
 
     void addTrackToPlaylist(int playlistId, Track track);
-
 }
