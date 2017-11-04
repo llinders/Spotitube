@@ -26,7 +26,7 @@ public class TrackRestService {
         try {
             tracks = trackHandler.findAllAvailableTracksNotInPlaylist(playlistId, token);
         } catch (InvalidTokenException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
         }
         return Response.ok().entity(tracks).build();
     }

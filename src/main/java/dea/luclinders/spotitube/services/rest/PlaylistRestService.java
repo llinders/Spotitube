@@ -28,7 +28,7 @@ public class PlaylistRestService {
         try {
             playlistList = playlistHandler.findAllAvailablePlaylists(token);
         } catch (InvalidTokenException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
         }
         return Response.ok().entity(playlistList).build();
     }
@@ -42,7 +42,7 @@ public class PlaylistRestService {
             playlistHandler.createPlaylist(playlist.getName(), token);
             playlistList = playlistHandler.findAllAvailablePlaylists(token);
         } catch (InvalidTokenException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
         }
         return Response.ok().entity(playlistList).build();
     }
@@ -57,7 +57,7 @@ public class PlaylistRestService {
             playlistHandler.updatePlaylist(playlistId, playlist.getName(), token);
             playlistList = playlistHandler.findAllAvailablePlaylists(token);
         } catch (InvalidTokenException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
         }
         return Response.ok().entity(playlistList).build();
     }
@@ -70,7 +70,23 @@ public class PlaylistRestService {
         try {
             tracks = trackHandler.findAllTracksFromPlaylist(playlistId, token);
         } catch (InvalidTokenException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(INVALID_TOKEN_RESPONSE).build();
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
+        }
+        return Response.ok().entity(tracks).build();
+    }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{playlistId}/tracks/{trackId}")
+    public Response deleteTrackFromPlaylist(@PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId, @QueryParam("token") String token) {
+
+
+        TrackList tracks;
+        try {
+            trackHandler.deleteTrackFromPlaylist(playlistId, trackId, token);
+            tracks = trackHandler.findAllTracksFromPlaylist(playlistId, token);
+        } catch (InvalidTokenException e) {
+            return Response.status(Response.Status.FORBIDDEN).entity(INVALID_TOKEN_RESPONSE).build();
         }
         return Response.ok().entity(tracks).build();
     }

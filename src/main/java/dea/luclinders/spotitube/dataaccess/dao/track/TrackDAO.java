@@ -10,4 +10,6 @@ public interface TrackDAO {
 
     List<Track> findTracksFromPlaylist(int playlistId);
 
+    void deleteTrackFromPlaylist(int playlistId, int trackId);
+
 }

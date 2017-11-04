@@ -18,7 +18,7 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT * FROM Track WHERE playlist_id != ?");
+            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track LEFT JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id NOT IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
             fetchTracksNotInPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksNotInPlaylist.executeQuery();
@@ -34,7 +34,7 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksFromPlaylist = conn.prepareStatement("SELECT * FROM Track WHERE playlist_id = ?");
+            PreparedStatement fetchTracksFromPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track INNER JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
             fetchTracksFromPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksFromPlaylist.executeQuery();
@@ -44,6 +44,19 @@ public class TrackDAOImpl implements TrackDAO {
             throw new RuntimeException("Failed to fetch tracks due to a persistance problem.", e);
         }
         return tracks;
+    }
+
+    public void deleteTrackFromPlaylist(int playlistId, int trackId) {
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
+        try {
+            PreparedStatement deleteTrackFromPlaylist = conn.prepareStatement("DELETE FROM PlaylistTrack WHERE playlist_id = ? AND track_id = ?");
+            deleteTrackFromPlaylist.setInt(1, playlistId);
+            deleteTrackFromPlaylist.setInt(2, trackId);
+            deleteTrackFromPlaylist.executeUpdate();
+        } catch (SQLException e) {
+            logger.severe(e.getMessage());
+            throw new RuntimeException("Failed to delete track due to a persistance problem.", e);
+        }
     }
 
     private List<Track> persistTracks(ResultSet rs) throws SQLException {

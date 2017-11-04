@@ -1,7 +1,7 @@
 package dea.luclinders.spotitube.dataaccess.dao.playlist;
 
-import dea.luclinders.spotitube.domain.Playlist;
 import dea.luclinders.spotitube.dataaccess.connection.DatabaseConnectionFactory;
+import dea.luclinders.spotitube.domain.Playlist;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
                 playlist.setName(playlistName);
                 playlist.setOwnerId(playlistOwnerId);
 
-                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE playlist_id = ?;");
+                PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE id IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
                 fetchTotalDurationOfAllTracks.setInt(1, playlistId);
                 ResultSet totalTrackDurationResultSet = fetchTotalDurationOfAllTracks.executeQuery();
                 totalTrackDurationResultSet.next();
@@ -46,6 +46,33 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             throw new RuntimeException("Failed to fetch playlists due to a persistance problem.", e);
         }
         return playlists;
+    }
+
+    public Playlist find(int playlistId) {
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
+        Playlist playlist = new Playlist();
+        try {
+            PreparedStatement fetchPlaylistStatement = conn.prepareStatement("SELECT * FROM Playlist WHERE id = ?");
+            fetchPlaylistStatement.setInt(1, playlistId);
+
+            ResultSet playlistResultSet = fetchPlaylistStatement.executeQuery();
+            playlistResultSet.next();
+            playlist.setId(playlistId);
+            playlist.setName(playlistResultSet.getString("name"));
+            playlist.setOwnerId(playlistResultSet.getInt("owner_id"));
+
+            PreparedStatement fetchTotalDurationOfAllTracks = conn.prepareStatement("SELECT SUM(duration) AS playlist_duration FROM Track WHERE id IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
+            fetchTotalDurationOfAllTracks.setInt(1, playlistId);
+            ResultSet totalTrackDurationResultSet = fetchTotalDurationOfAllTracks.executeQuery();
+            totalTrackDurationResultSet.next();
+            int playlistLength = totalTrackDurationResultSet.getInt("playlist_duration");
+
+            playlist.setLength(playlistLength);
+        } catch (SQLException e) {
+            logger.severe(e.getMessage());
+            throw new RuntimeException("Failed to fetch playlists due to a persistance problem.", e);
+        }
+        return playlist;
     }
 
     public void create(Playlist playlist) {

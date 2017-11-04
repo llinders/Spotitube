@@ -9,4 +9,6 @@ public interface TrackHandler {
 
     TrackList findAllTracksFromPlaylist(int playlistId, String token) throws InvalidTokenException;
 
+    void deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws InvalidTokenException;
+
 }
