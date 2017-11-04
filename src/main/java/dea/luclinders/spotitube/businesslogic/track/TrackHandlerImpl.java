@@ -4,6 +4,7 @@ import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
 import dea.luclinders.spotitube.businesslogic.SessionManager;
 import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
 import dea.luclinders.spotitube.dataaccess.dao.track.TrackDAO;
+import dea.luclinders.spotitube.domain.Track;
 import dea.luclinders.spotitube.domain.TrackList;
 
 import javax.inject.Inject;
@@ -39,6 +40,14 @@ public class TrackHandlerImpl implements TrackHandler {
         int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
         if (userId == playlistOwnerId) {
             trackDAO.deleteTrackFromPlaylist(playlistId, trackId);
+        }
+    }
+
+    public void addTrackToPlaylist(int playlistId, Track track, String token) throws InvalidTokenException {
+        int userId = SessionManager.getInstance().findUserByToken(token).getId();
+        int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
+        if (userId == playlistOwnerId) {
+            trackDAO.addTrackToPlaylist(playlistId, track);
         }
     }
 }

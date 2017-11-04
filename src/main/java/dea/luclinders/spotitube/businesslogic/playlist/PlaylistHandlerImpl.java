@@ -42,6 +42,14 @@ public class PlaylistHandlerImpl implements PlaylistHandler {
         playlistDAO.update(playlist);
     }
 
+    public void deletePlaylist(int playlistId, String token) throws InvalidTokenException {
+        int userId = SessionManager.getInstance().findUserByToken(token).getId();
+        int playlistOwnerId = playlistDAO.find(playlistId).getOwnerId();
+        if (userId == playlistOwnerId) {
+            playlistDAO.delete(playlistId);
+        }
+    }
+
     private List<UserPlaylist> convertPlaylistToUserPlaylist(List<Playlist> playlists, int userId) {
         List<UserPlaylist> userPlaylists = new ArrayList<>(playlists.size());
         for (Playlist p : playlists) {

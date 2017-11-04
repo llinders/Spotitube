@@ -101,4 +101,16 @@ public class PlaylistDAOImpl implements PlaylistDAO {
             throw new RuntimeException("Failed to update playlist due to a persistance problem.", e);
         }
     }
+
+    public void delete(int playlistId) {
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
+        try {
+            PreparedStatement deletePlaylist = conn.prepareStatement("DELETE FROM Playlist WHERE id = ?");
+            deletePlaylist.setInt(1, playlistId);
+            deletePlaylist.executeUpdate();
+        } catch (SQLException e) {
+            logger.severe(e.getMessage());
+            throw new RuntimeException("Failed to update playlist due to a persistance problem.", e);
+        }
+    }
 }

@@ -18,7 +18,7 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track LEFT JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id NOT IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
+            PreparedStatement fetchTracksNotInPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track LEFT JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id NOT IN (SELECT track_id FROM PlaylistTrack WHERE playlist_id = ?)");
             fetchTracksNotInPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksNotInPlaylist.executeQuery();
@@ -34,7 +34,7 @@ public class TrackDAOImpl implements TrackDAO {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         List<Track> tracks;
         try {
-            PreparedStatement fetchTracksFromPlaylist = conn.prepareStatement("SELECT Track.*, PlaylistTrack.offline_available FROM Track INNER JOIN PlaylistTrack ON Track.id = PlaylistTrack.track_id WHERE id IN (SELECT playlist_id FROM PlaylistTrack WHERE playlist_id = ?)");
+            PreparedStatement fetchTracksFromPlaylist = conn.prepareStatement("SELECT T.*, PT.offline_available FROM Track T INNER JOIN PlaylistTrack PT ON T.id = PT.track_id WHERE PT.playlist_id = ?");
             fetchTracksFromPlaylist.setInt(1, playlistId);
 
             ResultSet tracksResultSet = fetchTracksFromPlaylist.executeQuery();
@@ -56,6 +56,20 @@ public class TrackDAOImpl implements TrackDAO {
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new RuntimeException("Failed to delete track due to a persistance problem.", e);
+        }
+    }
+
+    public void addTrackToPlaylist(int playlistId, Track track) {
+        Connection conn = DatabaseConnectionFactory.getInstance().create();
+        try {
+            PreparedStatement addTrackToPlaylist = conn.prepareStatement("INSERT INTO PlaylistTrack VALUES(?, ?, ?)");
+            addTrackToPlaylist.setInt(1, playlistId);
+            addTrackToPlaylist.setInt(2, track.getId());
+            addTrackToPlaylist.setBoolean(3, track.isOfflineAvailable());
+            addTrackToPlaylist.executeUpdate();
+        } catch (SQLException e) {
+            logger.severe(e.getMessage());
+            throw new RuntimeException("Failed to add track due to a persistance problem.", e);
         }
     }
 
