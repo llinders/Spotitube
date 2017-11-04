@@ -40,5 +40,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: javax.annotation:javax.annotation-api:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.hk2.external:javax.inject:2.5.0-b42" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.h2database:h2:1.4.196" level="project" />
   </component>
 </module>

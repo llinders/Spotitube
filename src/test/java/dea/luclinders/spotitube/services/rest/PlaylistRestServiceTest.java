@@ -56,11 +56,29 @@ public class PlaylistRestServiceTest {
     }
 
     @Test
-    public void editPlaylist() {
+    public void editPlaylist_shouldCallUpdatePlaylist() throws InvalidTokenException {
+        // Setup
+        UserPlaylist playlist = new UserPlaylist();
+        playlist.setId(1);
+        playlist.setName("playlist");
 
+        // Test
+        playlistService.editPlaylist(playlist, playlist.getId(), TOKEN);
+
+        // Verify
+        verify(playlistHandler).updatePlaylist(playlist.getId(), playlist.getName(), TOKEN);
     }
 
     @Test
-    public void deletePlaylist() {
+    public void deletePlaylist_shouldCallDeletePlaylist() throws InvalidTokenException {
+        // Setup
+        UserPlaylist playlist = new UserPlaylist();
+        playlist.setId(1);
+
+        // Test
+        playlistService.deletePlaylist(playlist.getId(), TOKEN);
+
+        // Verify
+        verify(playlistHandler).deletePlaylist(playlist.getId(), TOKEN);
     }
 }

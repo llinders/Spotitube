@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
     public User findByUsername(String username) throws NotFoundException {
         Connection conn = DatabaseConnectionFactory.getInstance().create();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM User WHERE username=?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
             statement.setString(1, username);
 
             ResultSet resultSet = statement.executeQuery();

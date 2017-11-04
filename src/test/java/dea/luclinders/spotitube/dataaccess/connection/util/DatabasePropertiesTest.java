@@ -3,9 +3,7 @@ package dea.luclinders.spotitube.dataaccess.connection.util;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
 
 public class DatabasePropertiesTest {
     private DatabaseProperties properties;
@@ -34,31 +32,12 @@ public class DatabasePropertiesTest {
         assertTrue(driver != null);
     }
 
-    //TODO: Remove commented code if not needed anymore
-    /*@Test
+    @Test
     public void getConnectionUrl() {
         // test
         String connectionUrl = properties.getConnectionUrl();
 
         // check
-        assertEquals(CONNECTION_URL, connectionUrl);
+        assertTrue(connectionUrl != null);
     }
-
-    @Test
-    public void getUser() {
-        // test
-        String user = properties.getUser();
-
-        // check
-        assertEquals(USER, user);
-    }
-
-    @Test
-    public void getPassword() {
-        // test
-        String pass = properties.getPassword();
-
-        // check
-        assertEquals(PASS, pass);
-    }*/
 }

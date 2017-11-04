@@ -3,9 +3,9 @@ package dea.luclinders.spotitube.businesslogic;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SessionGeneratorImplTest {
+public class TokenGeneratorTest {
     private TokenGeneratorImpl tokenGenerator;
 
     @Before
@@ -19,6 +19,6 @@ public class SessionGeneratorImplTest {
         String token = tokenGenerator.generateToken();
 
         // Verify
-        assertEquals(19, token.length());
+        assertEquals(14, token.length());
     }
 }

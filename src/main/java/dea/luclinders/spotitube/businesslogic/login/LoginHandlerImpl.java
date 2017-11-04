@@ -15,13 +15,15 @@ public class LoginHandlerImpl implements LoginHandler {
     private UserDAO userDAO;
     @Inject
     private TokenGenerator tokenGenerator;
+    @Inject
+    private SessionManager sessionManager;
 
     public Session checkCredentials(String username, String password) throws CredentialException {
         try {
             User user = userDAO.findByUsername(username);
             if (user.getPassword().equals(password)) {
                 Session session = new Session(tokenGenerator.generateToken(), user);
-                SessionManager.getInstance().addSession(session.getToken(), user);
+                sessionManager.addSession(session.getToken(), user);
                 return session;
             }
         } catch (NotFoundException e) {
