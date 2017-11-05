@@ -53,7 +53,7 @@ public class LoginHandlerImplTest {
         assertEquals(token, session.getToken());
     }
 
-    @Test (expected = CredentialException.class)
+    @Test(expected = CredentialException.class)
     public void checkCredentials_shouldThrowCredentialExceptionWhenUserNotFound() throws CredentialException {
         // Setup
         String username = "username";
@@ -64,51 +64,4 @@ public class LoginHandlerImplTest {
         // Test
         loginHandler.checkCredentials(username, password);
     }
-
-    /*@Test
-    public void checkCredentails_shouldCallFindByUsername() throws CredentialException {
-        // Setup
-        String username = "username";
-        String password = "password";
-
-        // Test
-        loginHandler.checkCredentials(username, password);
-
-        // Verify
-        verify(userDAO).findByUsername(username);
-    }
-
-    @Test
-    public void checkCredentials_shouldCallGenerateToken() throws CredentialException {
-        // Setup
-        String username = "username";
-        String password = "password";
-
-        // Test
-        loginHandler.checkCredentials(username, password);
-
-        // Verify
-        verify(tokenGenerator).generateToken();
-    }
-
-    @Test
-    public void checkCredentials_shouldCallAddSession() throws CredentialException {
-        /// Setup
-        String username = "username";
-        String password = "password";
-        String token = "1234-1234-1234";
-
-        User user = new User();
-        user.setUser(username);
-        user.setUser(password);
-
-        when(userDAO.findByUsername(username)).thenReturn(user);
-        when(tokenGenerator.generateToken()).thenReturn(token);
-
-        // Test
-        loginHandler.checkCredentials(username, password);
-
-        // Verify
-        verify(sessionManager).addSession(token, user);
-    }*/
 }
