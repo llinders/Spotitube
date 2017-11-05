@@ -3,10 +3,7 @@ package dea.luclinders.spotitube.dataaccess.dao.track;
 import dea.luclinders.spotitube.dataaccess.connection.DatabaseConnectionFactory;
 import dea.luclinders.spotitube.domain.Track;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -83,8 +80,11 @@ public class TrackDAOImpl implements TrackDAO {
             track.setDuration(rs.getInt("duration"));
             track.setAlbum(rs.getString("album"));
             track.setPlaycount(rs.getInt("playcount"));
-            track.setPublicationDate(rs.getDate("publication_date"));
             track.setDescription(rs.getString("description"));
+            Date date = rs.getDate("publication_date");
+            if (date != null) {
+                track.setPublicationDate(String.valueOf(date));
+            }
             if (!trackInfoOnly) {
                 track.setOfflineAvailable(rs.getBoolean("offline_available"));
             } else {

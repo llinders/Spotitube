@@ -1,7 +1,5 @@
 package dea.luclinders.spotitube.domain;
 
-import java.util.Date;
-
 public class Track {
     private int id;
     private String title;
@@ -10,7 +8,7 @@ public class Track {
     private String album;
     private int playcount;
     private String description;
-    private Date publicationDate;
+    private String publicationDate;
     private boolean offlineAvailable;
 
     public int getId() {
@@ -41,7 +39,7 @@ public class Track {
         return description;
     }
 
-    public Date getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
@@ -77,7 +75,7 @@ public class Track {
         this.description = description;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
