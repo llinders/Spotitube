@@ -1,5 +1,6 @@
 package dea.luclinders.spotitube.dataaccess.connection.util;
 
+import dea.luclinders.spotitube.dataaccess.connection.DatabaseProperties;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package dea.luclinders.spotitube.dataaccess.connection.util;
+package dea.luclinders.spotitube.dataaccess.connection;
 
 import java.io.IOException;
 import java.util.Properties;

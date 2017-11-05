@@ -1,5 +1,6 @@
 package dea.luclinders.spotitube.dataaccess.dao.playlist;
 
+import dea.luclinders.spotitube.dataaccess.dao.PlaylistDAOImpl;
 import dea.luclinders.spotitube.domain.Playlist;
 import org.junit.Before;
 import org.junit.Test;

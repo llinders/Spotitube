@@ -1,4 +1,4 @@
-package dea.luclinders.spotitube.dataaccess.dao.track;
+package dea.luclinders.spotitube.dataaccess.dao;
 
 import dea.luclinders.spotitube.domain.Track;
 

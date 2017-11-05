@@ -3,7 +3,7 @@ package dea.luclinders.spotitube.businesslogic.playlist;
 import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
 import dea.luclinders.spotitube.businesslogic.PermissionHelper;
 import dea.luclinders.spotitube.businesslogic.SessionManager;
-import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
+import dea.luclinders.spotitube.dataaccess.dao.PlaylistDAO;
 import dea.luclinders.spotitube.domain.Playlist;
 import dea.luclinders.spotitube.domain.PlaylistList;
 import dea.luclinders.spotitube.domain.UserPlaylist;

@@ -3,8 +3,8 @@ package dea.luclinders.spotitube.businesslogic.track;
 import dea.luclinders.spotitube.businesslogic.InvalidTokenException;
 import dea.luclinders.spotitube.businesslogic.PermissionHelper;
 import dea.luclinders.spotitube.businesslogic.SessionManager;
-import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
-import dea.luclinders.spotitube.dataaccess.dao.track.TrackDAO;
+import dea.luclinders.spotitube.dataaccess.dao.PlaylistDAO;
+import dea.luclinders.spotitube.dataaccess.dao.TrackDAO;
 import dea.luclinders.spotitube.domain.Track;
 import dea.luclinders.spotitube.domain.TrackList;
 

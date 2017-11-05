@@ -1,4 +1,4 @@
-package dea.luclinders.spotitube.dataaccess.dao.playlist;
+package dea.luclinders.spotitube.dataaccess.dao;
 
 import dea.luclinders.spotitube.dataaccess.connection.DatabaseConnectionFactory;
 import dea.luclinders.spotitube.domain.Playlist;

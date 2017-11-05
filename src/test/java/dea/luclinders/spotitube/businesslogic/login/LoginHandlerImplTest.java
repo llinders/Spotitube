@@ -2,7 +2,7 @@ package dea.luclinders.spotitube.businesslogic.login;
 
 import dea.luclinders.spotitube.businesslogic.SessionManager;
 import dea.luclinders.spotitube.businesslogic.TokenGenerator;
-import dea.luclinders.spotitube.dataaccess.dao.user.UserDAO;
+import dea.luclinders.spotitube.dataaccess.dao.UserDAO;
 import dea.luclinders.spotitube.domain.Session;
 import dea.luclinders.spotitube.domain.User;
 import org.junit.Before;

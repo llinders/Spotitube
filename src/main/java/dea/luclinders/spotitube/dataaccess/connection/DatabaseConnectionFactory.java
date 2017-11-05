@@ -1,7 +1,5 @@
 package dea.luclinders.spotitube.dataaccess.connection;
 
-import dea.luclinders.spotitube.dataaccess.connection.util.DatabaseProperties;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

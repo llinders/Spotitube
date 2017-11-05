@@ -1,6 +1,6 @@
 package dea.luclinders.spotitube.businesslogic;
 
-import dea.luclinders.spotitube.dataaccess.dao.playlist.PlaylistDAO;
+import dea.luclinders.spotitube.dataaccess.dao.PlaylistDAO;
 
 import javax.inject.Inject;
 
