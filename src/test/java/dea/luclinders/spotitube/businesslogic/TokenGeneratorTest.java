@@ -1,16 +1,20 @@
 package dea.luclinders.spotitube.businesslogic;
 
+import dea.luclinders.spotitube.businesslogic.session.TokenGenerator;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
 
 public class TokenGeneratorTest {
-    private TokenGeneratorImpl tokenGenerator;
+    @InjectMocks
+    private TokenGenerator tokenGenerator;
 
     @Before
     public void setup() {
-        tokenGenerator = new TokenGeneratorImpl();
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

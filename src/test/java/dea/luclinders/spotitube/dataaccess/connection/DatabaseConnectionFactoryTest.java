@@ -1,5 +1,6 @@
 package dea.luclinders.spotitube.dataaccess.connection;
 
+import dea.luclinders.spotitube.dataaccess.DatabaseConnectionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
